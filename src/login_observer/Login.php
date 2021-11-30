@@ -9,11 +9,21 @@ class Login
     const LOGIN_ACCESS = 1;
     private $status = [];
 
-    public function handleLogin(): bool 
+    public function handleLogin(string $user,string $password, string $ip): bool 
     {
-        //stuffff
-        // blablabla
+        $isvalid = false;
         
-        return true;
+        return $isvalid;
     }
+
+    private function setStatus(int $status, string $user, string $ip)
+    {
+        $this->status = [$status, $user, $ip];
+    }
+
+    private function getStatus(): array
+    {
+        return $this->status;
+    }
+
 }
