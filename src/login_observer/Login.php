@@ -2,44 +2,38 @@
 
 namespace App\login_observer;
 
-class Login
+use App\login_observer\Observable;
+
+class Login implements Observable
 {
     const LOGIN_UNKNOWN = 1;
     const LOGIN_WRONG_PASS = 2;
     const LOGIN_ACCESS = 1;
-    private $status = [];
 
-    public function handleLogin(string $user,string $password, string $ip): bool 
+    private $storage;
+    private $observers = [];
+
+    public function attach(Observer $observer)
     {
-        $isvalid = false;
-        
-        switch(rand(1,3))
+        $this->observers[] = $observer;
+    }
+
+    public function detach(Observer $observer)
+    {
+        $this->observers = array_filter(
+            $this->observers,
+            function ($a) use ($observer) {
+                return (! ($a === $observer ));
+            }
+        );
+    }
+
+    public function notify()
+    {
+        foreach($this->observers as $obs)
         {
-            case 1:
-                $this->setStatus(self::LOGIN_ACCESS, $user, $ip);
-                $isvalid = true;
-                break;
-            case 2:
-                $this->setStatus(self::LOGIN_WRONG_PASS, $user, $ip);
-                $isvalid = false;
-                break;
-            case 3:
-                $this->setStatus(self::LOGIN_UNKNOWN, $user, $ip);
-                $isvalid = false;
-                break;
+            $obs->update($this);
         }
-        
-        return $isvalid;
-    }
-
-    private function setStatus(int $status, string $user, string $ip)
-    {
-        $this->status = [$status, $user, $ip];
-    }
-
-    private function getStatus(): array
-    {
-        return $this->status;
     }
 
 }
