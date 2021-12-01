@@ -6,7 +6,7 @@ use App\login_observer\Observable;
 
 class Login implements Observable
 {
-    const LOGIN_UNKNOWN = 1;
+    const LOGIN_USER_UNKNOWN = 1;
     const LOGIN_WRONG_PASS = 2;
     const LOGIN_ACCESS = 1;
 
