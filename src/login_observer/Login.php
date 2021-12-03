@@ -10,7 +10,7 @@ class Login implements Observable
     const LOGIN_WRONG_PASS = 2;
     const LOGIN_ACCESS = 1;
 
-    private $storage;
+    private $status = [];
     private $observers = [];
 
     public function attach(Observer $observer)
@@ -63,7 +63,7 @@ class Login implements Observable
         $this->status = [$status, $user, $ip];
     }
 
-    private function getStatus(): array
+    public function getStatus(): array
     {
         return $this->status;
     }
