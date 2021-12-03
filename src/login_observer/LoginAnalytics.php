@@ -3,13 +3,24 @@
 namespace App\login_observer;
 
 use App\login_observer\Observer;
-use App\login_obverver\Observable;
+use App\login_observer\Observable;
+use App\login_observer\Login;
 
-class LoginAnalytics implements Observer
+abstract class LoginAnalytics implements Observer
 {
+    private $login;
+    public function __construct(Login $login)
+    {
+        $this->login = $login;
+        $login->attach($this);
+    }
+
     public function update(Observable $observable)
     {
-        $status = $observable->getStatus();
-        print __CLASS__ . ":    takes action based on status/n";
+        if($observable === $this->login) {
+            $this->doUpdate($observable);
+        }
     }
+
+    abstract public function doUpdate(Login $login);
 }
