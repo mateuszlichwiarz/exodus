@@ -6,7 +6,7 @@ use App\login_observer\Observer;
 use App\login_observer\Observable;
 use App\login_observer\Login;
 
-abstract class LoginAnalytics implements Observer
+abstract class LoginObserver implements Observer
 {
     private $login;
     public function __construct(Login $login)
