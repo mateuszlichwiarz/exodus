@@ -4,14 +4,11 @@ namespace App\login_observer;
 
 use App\login_observer\LoginObserver;
 
-class SecurityMonitor extends LoginObserver
+class GeneralLogger extends LoginObserver
 {
     public function doUpdate(Login $login)
     {
         $status = $login->getStatus();
-        if($status[0] == Login::LOGIN_WRONG_PASS)
-        {
-            print __CLASS__ . ":    send mail to sysadmin";
-        }
+        print __CLASS__ . ":    add data to diary";
     }
 }
