@@ -4,6 +4,8 @@ namespace App\login_observer;
 
 use App\login_observer\LoginObserver;
 
+use App\login_observer\Login;
+
 class SecurityMonitor extends LoginObserver
 {
     public function doUpdate(Login $login)
