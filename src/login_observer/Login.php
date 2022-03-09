@@ -38,6 +38,8 @@ class Login implements Observable
 
     public function handleLogin(string $user, string $password, string $ip): bool
     {
+
+        //prawidziwe logowanie zrobić xd
         $isvalid = false;
         switch(rand(1, 3))
         {
