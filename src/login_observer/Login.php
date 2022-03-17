@@ -36,8 +36,40 @@ class Login implements Observable
         }
     }
 
+    public function chceŻyć()
+    {
+        // ZABRAĆ SIĘ DO ROBOTY, jestem jebanym leniem
+        // to straszne jak bardzo marnuje potencjał,
+        // nie wiem co robić
+        // chyba nigdy nie wyjdę z tej dziury
+        // nie chce umrzeć z myślą że cały ten czas zmarnowałem
+        // boje się
+        // piekło jest tutaj
+        // cipom jeszstem
+        // nie jestem
+        // ciągle coś mnie zatrzymuje
+        // albo bardzo chce żeby tak było
+
+    }
+
     public function handleLogin(string $user, string $password, string $ip): bool
     {
+        
+        if($user == true && $password == true)
+        {
+            $this->setStatus(self::LOGIN_ACCESS, $user, $ip);
+                $isvalid = true;
+        }
+        elseif($user == false)
+        {
+            $this->setStatus(self::LOGIN_USER_UNKNOWN, $user, $ip);
+                $isvalid = false;
+        }
+        elseif($password == false)
+        {
+            $this->setStatus(self::LOGIN_WRONG_PASS, $user, $ip);
+                $isvalid = false;
+        }
 
         //prawidziwe logowanie zrobić xd
         $isvalid = false;
