@@ -3,6 +3,7 @@
 namespace App\login_observer;
 
 use App\login_observer\Observable;
+use App\Core\Engine;
 
 class Login implements Observable
 {
@@ -17,7 +18,7 @@ class Login implements Observable
     {
         $this->observers[] = $observer;
     }
-
+    
     public function detach(Observer $observer)
     {
         $this->observers = array_filter(
@@ -36,58 +37,28 @@ class Login implements Observable
         }
     }
 
-    public function chceŻyć()
-    {
-        // ZABRAĆ SIĘ DO ROBOTY, jestem jebanym leniem
-        // to straszne jak bardzo marnuje potencjał,
-        // nie wiem co robić
-        // chyba nigdy nie wyjdę z tej dziury
-        // nie chce umrzeć z myślą że cały ten czas zmarnowałem
-        // boje się
-        // piekło jest tutaj
-        // cipom jeszstem
-        // nie jestem
-        // ciągle coś mnie zatrzymuje
-        // albo bardzo chce żeby tak było
+    public function handleLogin(string $userName, string $password, string $ip): bool
+    {   
+        $ip = Engine::getIp();
+        $params = Engine::getParams();
 
-    }
-
-    public function handleLogin(string $user, string $password, string $ip): bool
-    {
-        
-        if($user == true && $password == true)
-        {
-            $this->setStatus(self::LOGIN_ACCESS, $user, $ip);
-                $isvalid = true;
-        }
-        elseif($user == false)
-        {
-            $this->setStatus(self::LOGIN_USER_UNKNOWN, $user, $ip);
-                $isvalid = false;
-        }
-        elseif($password == false)
-        {
-            $this->setStatus(self::LOGIN_WRONG_PASS, $user, $ip);
-                $isvalid = false;
-        }
-
-        //prawidziwe logowanie zrobić xd
         $isvalid = false;
-        switch(rand(1, 3))
+        if($userName == $params['userName'] && $password == $params['password'])
         {
-            case 1:
-                $this->setStatus(self::LOGIN_ACCESS, $user, $ip);
+            $this->setStatus(self::LOGIN_ACCESS, $userName, $ip);
                 $isvalid = true;
-                break;
-            case 2:
-                $this->setStatus(self::LOGIN_WRONG_PASS, $user, $ip);
-                $isvalid = false;
-                break;
-            case 3:
-                $this->setStatus(self::LOGIN_USER_UNKNOWN, $user, $ip);
-                $isvalid = false;
-                break;
         }
+        elseif($userName == $params['userName'])
+        {
+            $this->setStatus(self::LOGIN_USER_UNKNOWN, $userName, $ip);
+                $isvalid = false;
+        }
+        elseif($password == $params['password'])
+        {
+            $this->setStatus(self::LOGIN_WRONG_PASS, $password, $ip);
+                $isvalid = false;
+        }
+
         $this->notify();
         return $isvalid;
     }
@@ -103,3 +74,5 @@ class Login implements Observable
     }
 
 }
+
+//jak wróce to trzeba zrobić wywołanie login_observer i spróbować to wykorzystać

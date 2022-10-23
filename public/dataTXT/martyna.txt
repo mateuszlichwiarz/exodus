@@ -1,0 +1,6 @@
+type:user
+id:0
+nickname:martyna
+password:kwiatek123
+birthday:12.02.2005
+info:ma dałna

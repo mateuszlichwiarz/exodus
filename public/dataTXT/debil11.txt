@@ -1,0 +1,6 @@
+type:user
+id:0
+nickname:debil11
+password:kał12
+birthday:31.12.1996
+info:bezbek
