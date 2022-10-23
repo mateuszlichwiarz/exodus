@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\Type\UserType;
@@ -18,7 +19,7 @@ use App\Entity\User;
 class UserController extends AbstractController
 {
     /**
-     * @Route("user", name="index")
+     * @Route("", methods="GET", name="index")
      */
     public function index(): Response
     {
@@ -28,7 +29,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("user/new", name="user_new_data_input")
+     * @Route("/user", methods="GET", name="user_new")
      */
     public function createUser(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -48,7 +49,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute();
+            return $this->redirectToRoute('index');
         }
 
         return $this->renderForm('user/user_new.html.twig', [
