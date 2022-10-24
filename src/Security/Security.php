@@ -1,51 +1,21 @@
 <?php
 
-namespace App\Security;
+namespace App\SignManager;
+
+use App\Entity\User;
 
 class Security
 {
-    static public function board()
+    private $user;
+
+    public function __construct(User $user)
     {
-        $board['1'] = 'c';
-        $board['2'] = 'e';
-        $board['3'] = 's';
-        $board['4'] = 'g';
-        $board['5'] = 'j';
-
-        $board['a'] = '0G';
-        $board['m'] = '56';
-        $board['r'] = 'H6';
-        $board['t'] = '20';
-        $board['y'] = 'FJ3';
-        $board['n'] = '05';
-
-        return $board;
+        $this->user = $user;
     }
 
-    //zapisywanie
-    public function save()
+    public function getUser()
     {
-        $nickname = 'martyna';
-        $board = Security::board();
-        
-        $letters = str_split($nickname);
-
-        $hashed = [];
-        $i = 0;
-        foreach($letters as $letter)
-        {
-            $hashed[$i] = $board[$letter];
-            $i++;
-        }
-
-        $new = implode($hashed);
-
-        return $new;
+        return $this->user;
     }
-
-    //odczytywanie
-    public function read()
-    {
-        
-    }
+    
 }
