@@ -4,12 +4,17 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Form\Type\UserType;
-use App\Entity\User;
 
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use Doctrine\Persistence\ManagerRegistry;
+
+use App\Form\Type\Sign\SignEmailType;
+use App\Form\Type\Sign\SignPasswordType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SignController extends AbstractController
 {
@@ -22,25 +27,51 @@ class SignController extends AbstractController
     }
 
     /**
-     * @Route("sign/sign_in/", methods = "GET", name="sign_email")
+     * @Route("sign/sign_in/email", methods = "GET", name="sign_email")
      */
-    public function signInEmail(Request $request): Response
+    public function signInEmail(Request $request, ManagerRegistry $doctrine): Response
     {
         $user = new User();
-        $form_0 = $this->createForm(UserType::class, $user);
-        $form_0->handleRequest($request);
-        return $this->renderForm('sign/sign_email.html.twig', [
+        $formEmail = $this->createForm(SignEmailType::class, $user, [
+            'action' => $this->generateUrl('sign_password'),
+            'method' => 'POST',
+        ]);
+        $formEmail->handleRequest($request);
+        if($formEmail->isSubmitted() && $formEmail->isValid())
+        {
+            $user = $formEmail->getData();
             
+            //return $this->redirectToRoute('sign_password');
+        }
+
+        return $this->renderForm('sign/signEmail.html.twig', [
+            'formEmail' => $formEmail,
         ]);
     }
 
     /**
-     * @Route("sign/sign_in/password", methods = "GET", name="sign_password")
+     * @Route("sign/sign_in/password", methods = "POST", name="sign_password")
      */
-    public function signInPassword(): Response
+    public function signInPassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
-        return $this->renderForm('sign/sign_password.html.twig', [
-            
+        $user = new User();
+        $formPassword = $this->createForm(SignPasswordType::class, $user, [
+            'action' => $this->generateUrl('index'),
+            'method' => 'POST',
+        ]);
+        $formPassword->handleRequest($request);
+        if($formPassword->isSubmitted() && $formPassword->isValid())
+        {
+            $password = $formPassword->GetData();
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $password
+            );
+
+
+        }
+        return $this->renderForm('sign/signPassword.html.twig', [
+            'formPassword' => $formPassword,
         ]);
     }
 
