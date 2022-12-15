@@ -13,6 +13,5 @@ class ExodusController extends AbstractController
      */
     public function index()
     {
-        return new Response('Welcome');
+        return $this->render('exodus/index.html.twig');
     }
-}
