@@ -15,3 +15,5 @@ class ExodusController extends AbstractController
     {
         return $this->render('exodus/index.html.twig');
     }
+
+}
