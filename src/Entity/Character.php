@@ -39,12 +39,12 @@ class Character
     private $str;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $weapon;
+    private $Weapon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $Armor;
 
@@ -101,27 +101,28 @@ class Character
         return $this;
     }
 
-    public function getWeapon(): ?string
+    public function getWeapon(): ?int
     {
-        return $this->weapon;
+        return $this->Weapon;
     }
 
-    public function setWeapon(string $weapon): self
+    public function setWeapon(int $Weapon): self
     {
-        $this->weapon = $weapon;
+        $this->Weapon = $Weapon;
 
         return $this;
     }
 
-    public function getArmor(): ?string
+    public function getArmor(): ?int
     {
         return $this->Armor;
     }
 
-    public function setArmor(string $Armor): self
+    public function setArmor(int $Armor): self
     {
         $this->Armor = $Armor;
 
         return $this;
     }
+
 }
