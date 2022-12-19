@@ -23,9 +23,14 @@ class Armor
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $def;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $req;
 
     public function getId(): ?int
     {
@@ -44,14 +49,26 @@ class Armor
         return $this;
     }
 
-    public function getDef(): ?string
+    public function getDef(): ?int
     {
         return $this->def;
     }
 
-    public function setDef(string $def): self
+    public function setDef(int $def): self
     {
         $this->def = $def;
+
+        return $this;
+    }
+
+    public function getReq(): ?int
+    {
+        return $this->req;
+    }
+
+    public function setReq(int $req): self
+    {
+        $this->req = $req;
 
         return $this;
     }
