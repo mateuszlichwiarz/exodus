@@ -41,12 +41,18 @@ class Character
     /**
      * @ORM\Column(type="integer")
      */
+    private $skillPoints;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Weapon::class, cascade={"persist", "remove"})
+     */
     private $Weapon;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity=Armor::class, cascade={"persist", "remove"})
      */
     private $Armor;
+
 
     public function getId(): ?int
     {
@@ -101,24 +107,36 @@ class Character
         return $this;
     }
 
-    public function getWeapon(): ?int
+    public function getSkillPoints(): ?int
+    {
+        return $this->skillPoints;
+    }
+
+    public function setSkillPoints(int $skillPoints): self
+    {
+        $this->skillPoints = $skillPoints;
+
+        return $this;
+    }
+
+    public function getWeapon(): ?Weapon
     {
         return $this->Weapon;
     }
 
-    public function setWeapon(int $Weapon): self
+    public function setWeapon(?Weapon $Weapon): self
     {
         $this->Weapon = $Weapon;
 
         return $this;
     }
 
-    public function getArmor(): ?int
+    public function getArmor(): ?Armor
     {
         return $this->Armor;
     }
 
-    public function setArmor(int $Armor): self
+    public function setArmor(?Armor $Armor): self
     {
         $this->Armor = $Armor;
 
