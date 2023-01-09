@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        
+        <script type="text/javascript">
+
+            function getSp()
+            {
+                var sp = document.getElementById("sp").innerHTML;
+                return sp;
+            }
+
+            function getStr()
+            {
+                var str = document.getElementById("str").innerHTML;
+                return str;
+            }
+
+            function changeStats(operation)
+            {
+                var marker;
+                var sp  = document.getElementById('sp').innerHTML;
+                var str = document.getElementById('str').innerHTML;
+                
+                if(operation == 'add' && sp > 0)
+                {
+                    sp--;
+                    str++;
+                }else if(operation == 'sub' && sp < {{ sp }})
+                {
+                    sp++;
+                    str--;
+                }
+
+                document.getElementById('sp').innerHTML = sp;
+                document.getElementById('str').innerHTML = str;
+
+                if(sp == {{ sp }})
+                {
+                    var form = '';
+                    document.getElementById('form').innerHTML = form;
+                    document.getElementById('str_decrease').innerHTML= '';
+                }else
+                {
+                    //var path = {{ path('character_update_stats') }};
+                    var form = '<form action="{{ path("character_update_stats") }}" method="POST"><input type="hidden" name="sp" value="'+sp+'"/><input type="hidden" name="str" value="'+str+'"/><input type="submit" value="enter"/></form>';
+                    document.getElementById('form').innerHTML = form;
+                    document.getElementById('str_decrease').innerHTML= '<button onclick="changeStats'+"('sub');"+'" type="button"> - </button>';
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <div class="character">
+            Your character:
+            <br><br>
+            ----------------------------
+            <div class="info">
+                <br>
+                Name:         {{ name }}
+                <br>
+                Level:        {{ lvl }}   
+                <br>
+                Expirience:   {{ exp }}    
+                <br>
+                Skill Points:
+                <div id="sp">{{sp}}</div>
+                <br><br>
+                ----------------------------
+            </div>
+            <div class="stats">
+                <br>
+                Stats:
+                <br>
+                Strength:
+                    <div id="str">{{str}}</div>
+                        <div id="str_increase">
+                            <button onclick="changeStats('add');" type="button"> + </button>
+                        </div>
+                        <div id="str_decrease">
+                            <button onclick="changeStats('sub');" type="button"> - </button>
+                        </div>
+                    <div id="form">
+                    </div>
+                    <br>
+                ----------------------------
+            </div>
+                <br><br>
+            <div class="equipment">
+                Equipment:
+                <br><br>
+                Weapon: {{ weaponName }}
+                <br>
+                Damage: {{ weaponDmg }}
+                <br>
+                Type: {{ weaponType }}
+                <br><br>
+                Armor: {{ armorName }}
+                <br>
+                Defense: {{ armorDef }}
+                <br>
+                <br>
+                <a href="{{ path('character_inventory') }}" role="button">Inventory</a>
+                <br>
+                ----------------------------
+                <br>
+            </div>
+
+            END
+
+            <div id="date"></div>
+            <div id="result"></div>
+            <button type="button">alert</button>
+
+        </div>
+    </body>
+</html>
