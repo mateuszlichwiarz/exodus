@@ -1,4 +1,2 @@
 # exodus
-Game
-
-Testing ground
+testing ground
